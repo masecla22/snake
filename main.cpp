@@ -5,6 +5,8 @@ using namespace std;
 
 int main()
 {
-    cout << "Hello world!" << endl;
+    initwindow(900,600,"Snake -by masecla22",100,100);
+
+    getch();
     return 0;
 }

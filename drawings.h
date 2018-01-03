@@ -1,6 +1,7 @@
 #include <graphics.h>
 #include <iostream>
 #include <cmath>
+#include <ctime>
 #define UP 1
 #define LEFT 2
 #define RIGHT 3
@@ -25,13 +26,12 @@ struct cord
 {
     int x,y;
 };
-struct food
-{
+struct food{
     cord pos;
     void init()
     {
-        pos.x=2;
-        pos.y=3;
+        pos.x=random(0,44);
+        pos.y=random(0,29);
     }
     void drawIt()
     {
@@ -83,7 +83,6 @@ void moves(cord poss[100],int lenght, int direct)
         poss[i]=newArray[i];
 }
 
-
 struct snake
 {
     int lenght;
@@ -105,13 +104,23 @@ struct snake
             poss[i].y=2;
         }
     }
+    cord getHead()
+    {
+        return poss[0];
+    }
     void detectColision(food eat[100])
     {
         for(int i=0;i<lenght;i++)
         {
-            if(eat[i].pos.x==poss[i].x&&eat[i].pos.y==poss[i].y)
+            if(getHead().x==eat[i].pos.x && getHead().y==eat[i].pos.y)
+            {
                 lenght++;
+                eat[i].init();
+                eat[i].drawIt();
+            }
         }
+        if(getHead().y<=0)
+            poss[0].y=30;
     }
 };
 

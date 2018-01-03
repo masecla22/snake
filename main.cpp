@@ -25,13 +25,14 @@ int main()
     int a=2;
     while(true)
     {
-        if(GetAsyncKeyState(VK_UP)!=0)
+        //showGrid();
+        if(GetAsyncKeyState(VK_UP)!=0 && drect!=DOWN)
             drect=UP;
-        if(GetAsyncKeyState(VK_DOWN)!=0)
+        if(GetAsyncKeyState(VK_DOWN)!=0&& drect!=UP)
             drect=DOWN;
-        if(GetAsyncKeyState(VK_LEFT)!=0)
+        if(GetAsyncKeyState(VK_LEFT)!=0&& drect!=RIGHT)
             drect=LEFT;
-        if(GetAsyncKeyState(VK_RIGHT)!=0)
+        if(GetAsyncKeyState(VK_RIGHT)!=0&& drect!=LEFT)
             drect=RIGHT;
         player.drawIt();
         Sleep(100);
@@ -41,7 +42,7 @@ int main()
         player.detectColision(eats);
         for(int i=0; i<10; i++)
             eats[i].drawIt();
-        cout<<drect<<endl;
+        cout<<player.getHead().x<<" "<<player.getHead().y<<endl;
         a++;
     }
     getch();

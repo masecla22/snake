@@ -9,6 +9,18 @@
 
 
 using namespace std;
+int random(int min, int max)
+{
+    if(min==max)
+        return min;
+    static bool first = true;
+    if ( first )
+    {
+        srand(time(NULL));
+        first = false;
+    }
+    return min + rand() % (max - min);
+}
 struct cord
 {
     int x,y;
@@ -98,9 +110,7 @@ struct snake
         for(int i=0;i<lenght;i++)
         {
             if(eat[i].pos.x==poss[i].x&&eat[i].pos.y==poss[i].y)
-            {
                 lenght++;
-            }
         }
     }
 };

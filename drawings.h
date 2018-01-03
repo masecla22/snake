@@ -9,8 +9,26 @@
 
 
 using namespace std;
+struct cord
+{
+    int x,y;
+};
+struct food
+{
+    cord pos;
+    void init()
+    {
+        pos.x=2;
+        pos.y=3;
+    }
+    void drawIt()
+    {
+        ellipse(pos.x*20+10,pos.y*20+10,360,360,10,10);
+    }
 
+};
 
+///getPos - done
 cord getPos(cord pos,int direct)
 {
     if(direct==UP)
@@ -24,13 +42,15 @@ cord getPos(cord pos,int direct)
     return pos;
 }
 
-
+/// snkRect - done
 void snkRect(int x,int y)
 {
     x--;
     y--;
     rectangle(x*20,y*20,x*20+20,y*20+20);
 }
+
+///snkColor - done
 void snkColor(int x,int y)
 {
     x--;
@@ -41,36 +61,15 @@ void snkColor(int x,int y)
     }
 }
 
-
-struct cord
-{
-    int x,y;
-};
-struct food
-{
-    cord pos;
-    void drawIt()
-    {
-        ellipse(pos.x*20+10,pos.y*20+10,360,360,10,10);
-    }
-
-};
-void moveUp(cord poss[100],int lenght)
+void moves(cord poss[100],int lenght, int direct)
 {
     cord newArray[100];
     for(int i=0;i<lenght;i++)
-    {
         newArray[i+1]=poss[i];
-    }
-    newArray[0]=getPos(poss[0],UP);
+    newArray[0]=getPos(poss[0],direct);
+    for(int i=0;i<lenght;i++)
+        poss[i]=newArray[i];
 }
-
-
-
-
-
-
-
 
 
 struct snake
@@ -84,9 +83,24 @@ struct snake
     }
     void nextMove(int direction)
     {
-        if(direction==1)
+        moves(poss,lenght,direction);
+    }
+    void init()
+    {
+        for(int i=0;i<lenght;i++)
         {
-            moveUp(poss,lenght);
+            poss[i].x=(i+1);
+            poss[i].y=2;
+        }
+    }
+    void detectColision(food eat[100])
+    {
+        for(int i=0;i<lenght;i++)
+        {
+            if(eat[i].pos.x==poss[i].x&&eat[i].pos.y==poss[i].y)
+            {
+                lenght++;
+            }
         }
     }
 };

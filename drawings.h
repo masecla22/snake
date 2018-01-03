@@ -26,7 +26,8 @@ struct cord
 {
     int x,y;
 };
-struct food{
+struct food
+{
     cord pos;
     void init()
     {
@@ -76,10 +77,10 @@ void snkColor(int x,int y)
 void moves(cord poss[100],int lenght, int direct)
 {
     cord newArray[100];
-    for(int i=0;i<lenght;i++)
+    for(int i=0; i<lenght; i++)
         newArray[i+1]=poss[i];
     newArray[0]=getPos(poss[0],direct);
-    for(int i=0;i<lenght;i++)
+    for(int i=0; i<lenght; i++)
         poss[i]=newArray[i];
 }
 
@@ -90,7 +91,7 @@ struct snake
     void drawIt()
     {
         for(int i=0; i<lenght; i++)
-            snkColor(poss[i].x,poss[i].y);
+            snkRect(poss[i].x,poss[i].y);
     }
     void nextMove(int direction)
     {
@@ -98,10 +99,10 @@ struct snake
     }
     void init()
     {
-        for(int i=0;i<lenght;i++)
+        for(int i=5; i<(lenght+5); i++)
         {
             poss[i].x=(i+1);
-            poss[i].y=2;
+            poss[i].y=3;
         }
     }
     cord getHead()
@@ -110,7 +111,7 @@ struct snake
     }
     void detectColision(food eat[100])
     {
-        for(int i=0;i<lenght;i++)
+        for(int i=0; i<lenght; i++)
         {
             if(getHead().x==eat[i].pos.x && getHead().y==eat[i].pos.y)
             {
@@ -118,9 +119,21 @@ struct snake
                 eat[i].init();
                 eat[i].drawIt();
             }
+            if(getHead().x==poss[i].x&&getHead().y==poss[i].y)
+            {
+                cout<<"COLLISION IN SNAKE DETECT."<<endl;
+            }
         }
         if(getHead().y<=0)
             poss[0].y=30;
+    }
+    void flip()
+    {
+        cord newArray[100];
+        for(int i=(lenght-1); i>=0; i--)
+            newArray[i]=poss[(lenght-i)];
+        for(int i=0; i<lenght; i++)
+            poss[i]=newArray[i];
     }
 };
 

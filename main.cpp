@@ -23,6 +23,7 @@ int main()
         eats[i].drawIt();
     }
     int a=2;
+    player.flip();
     while(true)
     {
         //showGrid();
@@ -42,7 +43,6 @@ int main()
         player.detectColision(eats);
         for(int i=0; i<10; i++)
             eats[i].drawIt();
-        cout<<player.getHead().x<<" "<<player.getHead().y<<endl;
         a++;
     }
     getch();

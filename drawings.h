@@ -10,6 +10,19 @@
 
 
 using namespace std;
+int getInput()
+{
+    int drect;
+    if(GetAsyncKeyState(VK_UP)!=0 && drect!=DOWN)
+        drect=UP;
+    if(GetAsyncKeyState(VK_DOWN)!=0&& drect!=UP)
+        drect=DOWN;
+    if(GetAsyncKeyState(VK_LEFT)!=0&& drect!=RIGHT)
+        drect=LEFT;
+    if(GetAsyncKeyState(VK_RIGHT)!=0&& drect!=LEFT)
+        drect=RIGHT;
+    return drect;
+}
 int random(int min, int max)
 {
     if(min==max)
@@ -69,9 +82,7 @@ void snkColor(int x,int y)
     x--;
     y--;
     for(int i=0; i<20; i++)
-    {
         line(x*20,y*20+i,x*20+20,y*20+i);
-    }
 }
 
 void moves(cord poss[100],int lenght, int direct)
@@ -124,8 +135,14 @@ struct snake
                 cout<<"COLLISION IN SNAKE DETECT."<<endl;
             }
         }
-        if(getHead().y<=0)
+        if(getHead().y<0)
             poss[0].y=30;
+        if(getHead().y>30)
+            poss[0].y=0;
+        if(getHead().x<0)
+            poss[0].x=45;
+        if(getHead().x>45)
+            poss[0].x=0;
     }
     void flip()
     {

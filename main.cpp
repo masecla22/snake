@@ -21,6 +21,7 @@ int main()
     {
         eats[i].init();
         eats[i].drawIt();
+
     }
     int a=2;
     player.flip();
